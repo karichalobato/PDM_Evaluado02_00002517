@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+
 
 
 private const val ARG_PARAM1 = "param1"
@@ -16,8 +18,7 @@ class Fragment_carrete : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
-
+    var toolBox:ToolBoxListener?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,28 +33,27 @@ class Fragment_carrete : Fragment() {
         return inflater.inflate(R.layout.fragment_fragment_carrete, container, false)
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed( View: ImageView) {
+        toolBox?.ClickListenerHandler(view = ImageView())
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
+        if (context is ToolBoxListener) {
+            toolBox = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " SE NECESITA TOOLBOX")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        toolBox = null
     }
 
 
-    interface OnFragmentInteractionListener {
-
-        fun onFragmentInteraction(uri: Uri)
+    interface ToolBoxListener{
+        fun ClickListenerHandler(view: ImageView)
     }
 
     companion object {
